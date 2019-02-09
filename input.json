@@ -1,0 +1,26 @@
+{
+  "name": "tom",
+  "age": 10,
+  "likes": [
+    "Fish and Chips",
+    "Bad Coding"
+  ],
+  "address": {
+    "House_No": 10,
+    "Street": "Eleven Street",
+    "Town": "Norwich",
+    "Post_Code": {
+      "First_Bit": "AA00",
+      "Second_Bit": "A00"
+    }
+  },
+  "extra_info":{
+    "height": 100,
+    "width": 100,
+    "favourite_number": [
+      1,
+      5,
+      18
+    ]
+  }
+}
