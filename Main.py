@@ -1,29 +1,28 @@
 import xml.etree.cElementTree as ET
 import xml.dom.minidom as MD
 import json
-from sys import argv
 
 
-def prettyPrintXML(root):
+def pretty_print_xml(root):
     tree = ET.tostring(root)
     print(MD.parseString(tree).toprettyxml())
 
 
-def writeXML(root, filename='output.xml'):
+def write_xml(root, filename='output.xml'):
     tree = ET.ElementTree(root)
     tree.write(filename)
 
 
-def readJSON(filename='input.json'):
+def read_json(filename='input.json'):
     with open(filename) as f:
         return json.load(f)
 
 
-def jsonToXML(data, root):
+def json_to_xml(data, root):
     for key,val in data.items():
         if isinstance(val, dict):
             branch = ET.SubElement(root, key)
-            jsonToXML(val, branch)
+            json_to_xml(val, branch)
         elif isinstance(val, list):
             branch = ET.SubElement(root, key, type="array")
             for item in val:
@@ -35,9 +34,9 @@ def jsonToXML(data, root):
 
 def main():
     root = ET.Element('root')
-    converted = jsonToXML(readJSON(), root)
-    prettyPrintXML(converted)
-    writeXML(converted)
+    converted = json_to_xml(read_json(), root)
+    pretty_print_xml(converted)
+    write_xml(converted)
 
 
 if __name__ == '__main__':
