@@ -1,15 +1,15 @@
-import xml.etree.cElementTree as ET
-import xml.dom.minidom as MD
+import xml.etree.cElementTree as et
+import xml.dom.minidom as md
 import json
 
 
 def pretty_print_xml(root):
-    tree = ET.tostring(root)
-    print(MD.parseString(tree).toprettyxml())
+    tree = et.tostring(root)
+    print(md.parseString(tree).toprettyxml())
 
 
 def write_xml(root, filename='output.xml'):
-    tree = ET.ElementTree(root)
+    tree = et.ElementTree(root)
     tree.write(filename)
 
 
@@ -21,19 +21,19 @@ def read_json(filename='input.json'):
 def json_to_xml(data, root):
     for key,val in data.items():
         if isinstance(val, dict):
-            branch = ET.SubElement(root, key)
+            branch = et.SubElement(root, key)
             json_to_xml(val, branch)
         elif isinstance(val, list):
-            branch = ET.SubElement(root, key, type="array")
+            branch = et.SubElement(root, key, type="array")
             for item in val:
-                ET.SubElement(branch, "value").text = str(item)
+                et.SubElement(branch, "value").text = str(item)
         else:
-            ET.SubElement(root, key).text = str(val)
+            et.SubElement(root, key).text = str(val)
     return root
 
 
 def main():
-    root = ET.Element('root')
+    root = et.Element('root')
     converted = json_to_xml(read_json(), root)
     pretty_print_xml(converted)
     write_xml(converted)
